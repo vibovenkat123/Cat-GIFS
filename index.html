@@ -11,26 +11,42 @@
 <body>
   <div class="container">
     <h1>Cat GIFS</h1>
+    <button class="refresh" id = 'refresh'>Refresh</button>
     <img src="#" alt="cat gif">
   </div>
   <style>
-    .container{
+    .refresh{
+      background: none;
+      border-radius: 10px;
+      padding: 1em;
+      font-size: 1em;
+    }
+    button:hover{
+      cursor: pointer;
+    }
+    .container {
       flex-direction: column;
-      height:100vh;
-      display:flex;
+      height: 100vh;
+      display: flex;
       justify-content: center;
       align-items: center;
+      gap:15px
     }
   </style>
   <script>
     const img = document.querySelector('img');
-    fetch('https://api.giphy.com/v1/gifs/translate?api_key=KGYzVvsEaq4aknQ1XKWEelnqouVxy2oi&s=cats', { mode: 'cors' }).then(function (response) {
-      return response.json()
-    }).then(function(response){
-      return response.data.images.original.url
-    }).then(function(response){
-      img.src = response;
-    })
+    const reloadBtn = document.getElementById('refresh');
+    reloadBtn.addEventListener('click', fetchImage)
+    function fetchImage() {
+      fetch('https://api.giphy.com/v1/gifs/translate?api_key=KGYzVvsEaq4aknQ1XKWEelnqouVxy2oi&s=cats', { mode: 'cors' }).then(function (response) {
+        return response.json()
+      }).then(function (response) {
+        return response.data.images.original.url
+      }).then(function (response) {
+        img.src = response;
+      })
+    }
+    fetchImage()
   </script>
 </body>
 
