@@ -9,36 +9,88 @@
 </head>
 
 <body>
-  <div class="container">
+  <div class="form-div">
+    <form>
+      <input type="text" name="keyword" id="search">
+      <button type = 'button' id = 'submit' class = 'submit'>Submit</button>
+    </form>
+  </div>
+  <div class="img-container">
     <h1>Cat GIFS</h1>
-    <button class="refresh" id = 'refresh'>Refresh</button>
+    <button class="refresh" id='refresh'>Refresh</button>
     <img src="#" alt="cat gif">
   </div>
   <style>
-    .refresh{
+    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+    .submit{
+      border-radius: 15px;
+      border: 2px solid black;
+      background-color: greenyellow;
+      padding: 1em;
+      font-size: 1em;
+    }
+    body {
+      font-family: 'Poppins';
+      flex-direction: column;
+      justify-content: center;
+    }
+    .form-div{
+      width:100vw;
+      display: flex;
+      justify-content: center;
+    }
+    form input{
+      border-radius: 15px;
+      width:200px;
+      height: 50px;
+      font-size: 1em;
+    }
+    label {
+      margin-right: 2em;
+    }
+
+    .refresh {
       background: none;
       border-radius: 10px;
       padding: 1em;
       font-size: 1em;
     }
-    button:hover{
+
+    button:hover {
       cursor: pointer;
     }
-    .container {
+
+    .img-container {
       flex-direction: column;
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      gap:15px
+      gap: 15px
     }
   </style>
   <script>
+    const submitBtn = document.getElementById('submit');
+    const keyWord = document.getElementById('search');
+    console.log(keyWord)
+    let search = '';
     const img = document.querySelector('img');
+    console.log(submitBtn)
     const reloadBtn = document.getElementById('refresh');
-    reloadBtn.addEventListener('click', fetchImage)
-    function fetchImage() {
-      fetch('https://api.giphy.com/v1/gifs/translate?api_key=KGYzVvsEaq4aknQ1XKWEelnqouVxy2oi&s=cats', { mode: 'cors' }).then(function (response) {
+    submitBtn.addEventListener('click', ()=> {
+      console.log(keyWord)
+      search = keyWord.value
+      fetchImage(search)
+    })
+    reloadBtn.addEventListener('click', () => {
+      fetchImage(search)
+    })
+    function fetchImage(search) {
+      console.log(search)
+      if (search == ''){
+        search = 'cats'
+      }
+      fetch(`https://api.giphy.com/v1/gifs/translate?api_key=KGYzVvsEaq4aknQ1XKWEelnqouVxy2oi&s=${search}`, { mode: 'cors' }).then(function (response) {
         return response.json()
       }).then(function (response) {
         return response.data.images.original.url
@@ -46,7 +98,7 @@
         img.src = response;
       })
     }
-    fetchImage()
+    fetchImage(search)
   </script>
 </body>
 
