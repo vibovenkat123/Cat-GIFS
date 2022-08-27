@@ -16,7 +16,7 @@
     </form>
   </div>
   <div class="img-container">
-    <h1>Cat GIFS</h1>
+    <h1>GIFS</h1>
     <button class="refresh" id='refresh'>Refresh</button>
     <img src="#" alt="cat gif">
   </div>
@@ -70,6 +70,7 @@
     }
   </style>
   <script>
+    const header = document.querySelector('h1');
     const submitBtn = document.getElementById('submit');
     const keyWord = document.getElementById('search');
     console.log(keyWord)
@@ -88,8 +89,9 @@
     function fetchImage(search) {
       console.log(search)
       if (search == ''){
-        search = 'cats'
+        search = 'cat'
       }
+      header.textContent = `${search} GIFS`
       fetch(`https://api.giphy.com/v1/gifs/translate?api_key=KGYzVvsEaq4aknQ1XKWEelnqouVxy2oi&s=${search}`, { mode: 'cors' }).then(function (response) {
         return response.json()
       }).then(function (response) {
