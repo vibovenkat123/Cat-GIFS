@@ -1,2 +1,3 @@
-#GIFS
-From [The Odin Project](https://www.theodinproject.com)\
+# GIFS
+
+From [The Odin Project](https://www.theodinproject.com)
