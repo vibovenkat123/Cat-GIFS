@@ -86,19 +86,14 @@
     reloadBtn.addEventListener('click', () => {
       fetchImage(search)
     })
-    function fetchImage(search) {
-      console.log(search)
+    async function fetchImage(search) {
       if (search == ''){
         search = 'cat'
       }
       header.textContent = `${search} GIFS`
-      fetch(`https://api.giphy.com/v1/gifs/translate?api_key=KGYzVvsEaq4aknQ1XKWEelnqouVxy2oi&s=${search}`, { mode: 'cors' }).then(function (response) {
-        return response.json()
-      }).then(function (response) {
-        return response.data.images.original.url
-      }).then(function (response) {
-        img.src = response;
-      })
+      const response = await fetch(`https://api.giphy.com/v1/gifs/translate?api_key=KGYzVvsEaq4aknQ1XKWEelnqouVxy2oi&s=${search}`, { mode: 'cors' })
+      const imgData = await response.json()
+      img.src = imgData.data.images.original.url
     }
     fetchImage(search)
   </script>
