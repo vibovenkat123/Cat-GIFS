@@ -95,6 +95,12 @@
       if (search == '') {
         search = 'cat'
       }
+      window.addEventListener('keypress', (e) => {
+        if (e.key == 'Enter') {
+          e.preventDefault()
+          fetchImage(keyWord.value)
+        }
+      })
       header.textContent = `${search} GIFS`
       try {
         const response = await fetch(`https://api.giphy.com/v1/gifs/translate?api_key=KGYzVvsEaq4aknQ1XKWEelnqouVxy2oi&s=${search}`, { mode: 'cors' })
